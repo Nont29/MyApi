@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyApi.Dto;
 using MyApi.Model;
 using MyApi.Services;
 
@@ -28,6 +29,34 @@ namespace MyApi.Controllers
         {
             var result = await service.GetByIdAsync(Id);
             return result is null ? NotFound(new { message = "ไม่พบข้อมูล"}) : Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] UserCreateRequest Request)
+        {
+            var result = await service.CreateAsync(Request);
+            return CreatedAtAction(nameof(GetById), new { id = result.UserId }, result);
+        }
+
+        [HttpPut("{Id:int}")]
+        public async Task<IActionResult> Update([FromRoute] int Id, [FromBody] UserUpdateRequest Request)
+        {
+            var Updated = await service.UpdateAsync(Id, Request);
+            return Updated is null ? NotFound() : Ok(Updated);
+        }
+
+        [HttpDelete("{Id:int}")]
+        public async Task<IActionResult> Delete(int Id)
+        {
+            var result = await service.DeleteAsync(Id);
+            return result ? NoContent() : NotFound();
+        }
+
+        [HttpGet("role")]
+        public async Task<IActionResult> GetRole()
+        {
+            var result = await service.GetRoleList();
+            return Ok(result);
         }
     }
 }

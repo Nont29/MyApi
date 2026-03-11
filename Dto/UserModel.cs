@@ -22,4 +22,31 @@
         public int RoleId { get; set; }
         public string RoleName { get; set; } = null!;
     }
+
+    public class UserCreateRequest
+    {
+        public string Firstname { get; set; } = null!;
+        public string Lastname { get; set; } = null!;
+        public string Username { get; set; } = null!;
+        public string? Email { get; set; }
+        public bool IsActive { get; set; } = true;
+        public int RoleId { get; set; }
+    }
+
+
+    public class UserUpdateRequest
+    {
+        public string Firstname { get; set; } = null!;
+        public string Lastname { get; set; } = null!;
+        public string Username { get; set; } = null!;
+        public string? Email { get; set; }
+        public bool IsActive { get; set; } = true;
+        public int RoleId { get; set; }
+    }
+
+    public class RoleResponse
+    {
+        public int RoleId { get; set; }
+        public string RoleName { get; set; } = string.Empty;
+    }
 }
